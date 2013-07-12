@@ -12,10 +12,10 @@
 
     SetMeta("X-UA-Compatible", "IE=edge,chrome=1");
     SetMeta("viewport", "width=device-width, initial-scale=1, maximum-scale=1");
-    //Style.Include("bootstrap.css"); // standard style sheet
-    Style.Include("bootstrap.min.css"); // minified style sheet
-    //Style.Include("bootstrap-responsive.css"); // standard responsive style sheet
-    Style.Include("bootstrap-responsive.min.css"); // minified responsive style sheet
+    Style.Include("bootstrap.css"); // standard style sheet
+    //Style.Include("bootstrap.min.css"); // minified style sheet
+    Style.Include("bootstrap-responsive.css"); // standard responsive style sheet
+    //Style.Include("bootstrap-responsive.min.css"); // minified responsive style sheet
     //Style.Include("less/bootstrapless.less"); // LESS implementation *Requires DOTLESS module
     Style.Include("site.css"); // theme specific standard style sheet
     Script.Require("jQuery").AtHead();
@@ -52,8 +52,13 @@
     ***************************************************************/
 
     WorkContext.Layout.Navigation.Add(New.Branding(), "0"); // Site name and link to the home page
+    //WorkContext.Layout.Footer.Add(New.BadgeOfHonor(), "5"); // Powered by Orchard
+    //WorkContext.Layout.Navigation.Add(New.User(), "5"); // Login and dashboard links -Bootstrap Style up in dat nav
+
+
     WorkContext.Layout.Footer.Add(New.BadgeOfHonor(), "5"); // Powered by Orchard
-    WorkContext.Layout.Navigation.Add(New.User(), "5"); // Login and dashboard links
+    WorkContext.Layout.Footer.Add(New.User(), "10"); // Login and dashboard links
+    
     //WorkContext.Layout.Navigation.Add(New.SearchNav(), "10"); // Search box (requires Search module)
 
     /* Last bit of code to prep the layout wrapper
@@ -63,8 +68,9 @@
     var tag = Tag(Model, "div"); // using Tag so the layout div gets the classes, id and other attributes added to the Model
 }
 @tag.StartElement
-@if (Model.Navigation != null) {
-    <!--start: Navigation -->
+
+@*@if (Model.Navigation != null) {
+    *@<!--start: Navigation -->@*
     <div id="layout-navigation" class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container">
@@ -80,9 +86,9 @@
         </div>
     </div>
     <!--end: Navigation -->
-}
+}*@
 <!--start: Container -->
-<div class="container" style="padding-top: 60px;">
+<div class="container">
     @if (Model.Header != null) {
         <!--start: Row -->
         <div class="row">
@@ -111,10 +117,11 @@
     }
     <!--start: Row -->
     <div class="row">
-        @if (Model.AsideFirst != null) {
+        @if (Model.AsideFirst != null || Model.Navigation != null) {
             <div class="span3">
                 <div class="well">
-                    @Zone(Model.AsideFirst)
+                    @Zone(Model.Navigation)
+                    @Zone(Model.AsideFirst) 
                 </div>
             </div>
         }
@@ -231,7 +238,7 @@
         <!-- start: Container -->
         <div class="container">
             <!-- start: Row -->
-            <div class="row">
+            <div class="row footer">
                 @Zone(Model.Footer)
             </div>
             <!-- end: Row -->

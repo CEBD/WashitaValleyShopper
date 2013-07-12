@@ -21,6 +21,11 @@ ol ol, ol ul { }
 ul ul li, ul ol li,
 ol ol li, ol ul li { }
 
+#footer
+{
+    text-align:center;
+}
+
 /* Header
 =================================================================== */
 /* Uncomment this section to create hover-over dropdowns. Also add class name of "disabled" to <a> tag in MenuItemLinkdd.cshtml in Views folder
